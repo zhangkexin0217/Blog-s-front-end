@@ -2,7 +2,7 @@
 
 window.onload = function () {
 	
-	//ä¸ªäººä¸­å¿ƒ
+	//¸öÈËÖĞĞÄ
 	$().getClass('member').hover(function () {
 		$(this).css('background', 'url(images/arrow2.png) no-repeat 55px center');
 		$().getClass('member_ul').show();
@@ -10,31 +10,40 @@ window.onload = function () {
 		$(this).css('background', 'url(images/arrow.png) no-repeat 55px center');
 		$().getClass('member_ul').hide();
 	});
-
-	//ç™»å½•æ¡†
+	
+	//µÇÂ¼¿ò
 	var login = $().getId('login');
 	var screen = $().getId('screen');
-	login.center(350,250);
-	$().resize(function(){
-		login.center(350,250);
-		if(login.css('display') == 'block'){
+	login.center(350, 250).resize(function () {
+		if (login.css('display') == 'block') {
 			screen.lock();
 		}
+	});
+	$().getClass('login').click(function () {
+		login.center(350, 250);
+		login.css('display', 'block');
 		screen.lock();
 	});
-
-	$().getClass('login').click(function(){
-		login.css('display','block');
-		$().getId('screen').lock();
-	});
-
-	$().getClass('close').click(function(){
-		login.css('display','none');
-		$().getId('screen').unlock();
+	$().getClass('close').click(function () {
+		login.css('display', 'none');
+		screen.unlock();
 	});
 	
+	//ÍÏ×§
+	login.drag();
+	
+	//var oDiv = document.getElementById('login');
+	
+	//ÍÏ×§Á÷³Ì£º
+	//1.ÏÈµãÏÂÈ¥
+	//2.ÔÚµãÏÂµÄÎïÌå±»Ñ¡ÖĞ£¬½øĞĞmoveÒÆ¶¯
+	//3.Ì§ÆğÊó±ê£¬Í£Ö¹ÒÆ¶¯
+	//µã»÷Ä³¸öÎïÌå£¬ÓÃoDiv¼´¿É£¬moveºÍupÊÇÈ«¾ÖÇøÓò£¬Ò²¾ÍÊÇÕû¸öÎÄµµÍ¨ÓÃ£¬Ó¦¸ÃÓÃdocument
 
 
+	
+
+	
 };
 
 

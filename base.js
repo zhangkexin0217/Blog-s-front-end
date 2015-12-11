@@ -58,7 +58,7 @@ Base.prototype.getElement = function (num) {
 Base.prototype.css = function (attr, value) {
 	for (var i = 0; i < this.elements.length; i ++) {
 		if (arguments.length == 1) {
-			return getStyle(this.elements[i],attr);
+			return getStyle(this.elements[i], attr);
 		}
 		this.elements[i].style[attr] = value;
 	}
@@ -68,7 +68,7 @@ Base.prototype.css = function (attr, value) {
 //添加Class
 Base.prototype.addClass = function (className) {
 	for (var i = 0; i < this.elements.length; i ++) {
-		if (!hasClass(this.elements[i],className)) {
+		if (!hasClass(this.elements[i], className)) {
 			this.elements[i].className += ' ' + className;
 		}
 	}
@@ -78,7 +78,7 @@ Base.prototype.addClass = function (className) {
 //移除Class
 Base.prototype.removeClass = function (className) {
 	for (var i = 0; i < this.elements.length; i ++) {
-		if (this.elements[i].className.match(new RegExp('(\\s|^)' +className +'(\\s|$)'))) {
+		if (hasClass(this.elements[i], className)) {
 			this.elements[i].className = this.elements[i].className.replace(new RegExp('(\\s|^)' +className +'(\\s|$)'), ' ');
 		}
 	}
@@ -88,14 +88,14 @@ Base.prototype.removeClass = function (className) {
 //添加link或style的CSS规则
 Base.prototype.addRule = function (num, selectorText, cssText, position) {
 	var sheet = document.styleSheets[num];
-	insertRule(sheet,selectorText, cssText, position);
+	insertRule(sheet, selectorText, cssText, position);
 	return this;
 }
 
 //移除link或style的CSS规则
 Base.prototype.removeRule = function (num, index) {
 	var sheet = document.styleSheets[num];
-	deleteRule(sheet,index);
+	deleteRule(sheet, index);
 	return this;
 }
 
@@ -133,7 +133,37 @@ Base.prototype.hide = function () {
 		this.elements[i].style.display = 'none';
 	}
 	return this;
+}
+
+//设置物体居中
+Base.prototype.center = function (width, height) {
+	var top = (document.documentElement.clientHeight - 250) / 2;
+	var left = (document.documentElement.clientWidth - 350) / 2;
+	for (var i = 0; i < this.elements.length; i ++) {
+		this.elements[i].style.top = top + 'px';
+		this.elements[i].style.left = left + 'px';
+	}
+	return this;
+}
+
+//锁屏功能
+Base.prototype.lock = function () {
+	for (var i = 0; i < this.elements.length; i ++) {
+		this.elements[i].style.width = getInner().width + 'px';
+		this.elements[i].style.height = getInner().height + 'px';
+		this.elements[i].style.display = 'block';
+		document.documentElement.style.overflow = 'hidden';
+	}
+	return this;
 };
+
+Base.prototype.unlock = function () {
+	for (var i = 0; i < this.elements.length; i ++) {
+		this.elements[i].style.display = 'none';
+		document.documentElement.style.overflow = 'auto';
+	}
+	return this;
+}
 
 //触发点击事件
 Base.prototype.click = function (fn) {
@@ -142,48 +172,67 @@ Base.prototype.click = function (fn) {
 	}
 	return this;
 }
-//设置物体居中
-Base.prototype.center = function(width,height){
-	var top = (document.documentElement.clientHeight-width)/2;
-	var left = (document.documentElement.clientWidth-height)/2;
-	for (var i = 0; i < this.elements.length; i ++) {
-		this.elements[i].style.top = top + 'px';
-		this.elements[i].style.left = left + 'px';
-	}
-	return this;
-}
 
 //触发浏览器窗口事件
-Base.prototype.resize = function(fn){
-	window.onresize = fn;
-	return this;
-}
-
-//锁屏功能
-Base.prototype.lock = function(){
+Base.prototype.resize = function (fn) {
 	for (var i = 0; i < this.elements.length; i ++) {
-		this.elements[i].style.width = getInner().width + 'px';
-		this.elements[i].style.height = getInner().height + 'px';
-		this.elements[i].style.display = 'block';
+		var element = this.elements[i];
+		window.onresize = function () {
+			fn();
+			if (element.offsetLeft > getInner().width - element.offsetWidth) {
+				element.style.left = getInner().width - element.offsetWidth + 'px';
+			}
+			if (element.offsetTop > getInner().height - element.offsetHeight) {
+				element.style.top = getInner().height - element.offsetHeight + 'px';
+			}
+		};
 	}
 	return this;
 }
 
-Base.prototype.unlock = function(){
+//拖拽功能
+Base.prototype.drag = function () {
 	for (var i = 0; i < this.elements.length; i ++) {
-		this.elements[i].style.display='none';
+		this.elements[i].onmousedown = function (e) {
+			preDef(e);
+			var e = getEvent(e);
+			var _this = this;
+			var diffX = e.clientX - _this.offsetLeft;
+			var diffY = e.clientY - _this.offsetTop;
+			if (typeof _this.setCapture != 'undefined') {
+				_this.setCapture();
+			} 
+			document.onmousemove = function (e) {
+				var e = getEvent(e);
+				var left = e.clientX - diffX;
+				var top = e.clientY - diffY;
+				
+				if (left < 0) {
+					left = 0;
+				} else if (left > getInner().width - _this.offsetWidth) {
+					left = getInner().width - _this.offsetWidth;
+				}
+				
+				if (top < 0) {
+					top = 0;
+				} else if (top > getInner().height - _this.offsetHeight) {
+					top = getInner().height - _this.offsetHeight;
+				}
+				
+				_this.style.left = left + 'px';
+				_this.style.top = top + 'px';
+			} 
+			document.onmouseup = function () {
+				this.onmousemove = null;
+				this.onmouseup = null;
+				if (typeof _this.releaseCapture != 'undefined') {
+					_this.releaseCapture();
+				}
+			}
+		};
 	}
 	return this;
 }
-
-
-//
-
-
-
-
-
-
 
 
 

@@ -32,7 +32,7 @@ ul li {
 	float:right;
 	background:url(images/arrow.png) no-repeat 55px center;
 	cursor:pointer;
-	position: relative;
+	position:relative;
 }
 #header ul {
 	position:absolute;
@@ -61,95 +61,79 @@ ul li {
 #header ul li a:hover {
 	background:#fc0 url(images/arrow4.gif) no-repeat 5px 45%;
 }
-
-#header .login{
-	float: right;
-	width: 35px;
-	height: 30px;
-	line-height: 30px;
-	cursor: pointer;
-	
+#header .login {
+	float:right;
+	width:35px;
+	height:30px;
+	line-height:30px;
+	cursor:pointer;
 }
-
-#screen{
-	position: absolute;
-	top: 0;
-	left: 0;
-	background: #000;
-	z-index: 9998;
+#screen {
+	position:absolute;
+	top:0;
+	left:0;
+	background:#000;
+	z-index:9998;
 	filter:alpha(opacity=30);
-	opacity: 0.3;
+	opacity:0.3;
 	display:none;
 }
-
-#login{
-	width: 300px;
-	height: 250px;
-	border: 1px solid #ccc;
-	position: absolute;
-	display: none;
-	z-index: 9999;
-	background: #fff;
+#login {
+	width:350px;
+	height:250px;
+	border:1px solid #ccc;
+	position:absolute;
+	display:none;
+	z-index:9999;
+	background:#fff;
 }
-
-#login h2{
-	height: 40px;
-	line-height: 40px;
-	text-align: center;
-	font-size: 14px;
-	letter-spacing: 1px;
-	color: #666;
-	background: url(images/login_header.png) repeat-x;
-	margin: 0;
-	padding: 0;
-	border-bottom: 1px solid #ccc;
-	margin: 0 0 20px 0;
+#login h2 {
+	height:40px;
+	line-height:40px;
+	text-align:center;
+	font-size:14px;
+	letter-spacing:1px;
+	color:#666;
+	background:url(images/login_header.png) repeat-x;
+	margin:0;
+	padding:0;
+	border-bottom:1px solid #ccc;
+	margin:0 0 20px 0;
+	cursor:move;
 }
-
-#login h2 img{
-	float: right;
-	position: relative;
-	top: 13px;
-	right: 8px;
-	cursor: pointer;
+#login h2 img {
+	float:right;
+	position:relative;
+	top:14px;
+	right:8px;
+	cursor:pointer;
 }
-
-#login div.user,#login div.pass{
-	font-size: 14px;
-	color: #666;
-	padding: 5px 0;
-	text-align: center;
+#login div.user, #login div.pass {
+	font-size:14px;
+	color:#666;
+	padding:5px 0;
+	text-align:center;
 }
-
-#login input.text{
-	width: 180px;
-	height: 25px;
-	border: 1px solid #ccc;
-	background: #fff;
-	font-size: 14px;
+#login input.text {
+	width:200px;
+	height:25px;
+	border:1px solid #ccc;
+	background:#fff;
+	font-size:14px;
 }
-
-#login .button{
-	text-align: center;
-	padding: 20px 0;
+#login .button {
+	text-align:center;
+	padding:20px 0;
 }
-#login input.submit{
-	width: 107px;
-	height: 30px;
-	background: url(images/login_button.png) no-repeat;
-	border: none;
-	cursor: pointer;
+#login input.submit {
+	width:107px;
+	height:30px;
+	background:url(images/login_button.png) no-repeat;
+	border:none;
+	cursor:pointer;
 }
-#login .other{
-	text-align: right;
-	padding: 15px 10px;
-	color: #666;
-	cursor: pointer;
+#login .other {
+	text-align:right;
+	padding:15px 10px;
+	color:#666;
 }
-
-
-
-
-
-
-
