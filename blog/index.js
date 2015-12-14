@@ -31,7 +31,8 @@ window.onload = function () {
 	});
 	
 	//мов╖
-	login.drag();
+	
+	login.drag([$().getTagName('h2').getElement(0)]);
 	
 	//var oDiv = document.getElementById('login');
 	
