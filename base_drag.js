@@ -1,5 +1,5 @@
-
-$().extend('drag',function(tags){
+﻿$().extend('drag', function () {
+	var tags = arguments;
 	for (var i = 0; i < this.elements.length; i ++) {
 		addEvent(this.elements[i], 'mousedown', function (e) {
 			if (trim(this.innerHTML).length == 0) e.preventDefault();
@@ -7,15 +7,16 @@ $().extend('drag',function(tags){
 			var diffX = e.clientX - _this.offsetLeft;
 			var diffY = e.clientY - _this.offsetTop;
 			
-            //自定义拖拽区
-            var flag = false;
-            for (var i =0; i< tags.length;i++){
-            	if(e.target ==tags[i]){
-            		flag = true;   //只要有一个是true ,就立即返回
-            		break;
-            	}
-            }
-
+			//自定义拖拽区域
+			var flag = false;
+			
+			for (var i = 0; i < tags.length; i ++) {
+				if (e.target == tags[i]) {
+					flag = true;					//只要有一个是true，就立刻返回
+					break;
+				}
+			}
+			
 			if (flag) {
 				addEvent(document, 'mousemove', move);
 				addEvent(document, 'mouseup', up);
@@ -59,4 +60,3 @@ $().extend('drag',function(tags){
 	}
 	return this;
 });
-
