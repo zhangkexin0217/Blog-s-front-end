@@ -1,21 +1,4 @@
-/*
-window.onload = function () {
-	alert(document.body);
-};
 
-var a = function () {};
-alert(typeof a);
-
-
-$(function () {
-	alert(document.body);
-});
-
-
-$().ready(function () {
-	alert(document.body);
-});
-*/
 
 $(function () {
 	//个人中心
@@ -47,48 +30,25 @@ $(function () {
 	
 	//拖拽
 	login.drag($('#login h2').last());
-});
 
 
-/*
-window.onload = function () {
-	
-	//个人中心
-	$().getClass('member').hover(function () {
-		$(this).css('background', 'url(images/arrow2.png) no-repeat 55px center');
-		$().getClass('member_ul').show();
+
+//百度分享初始位置
+	$('#share').css('top', (getInner().height - parseInt(getStyle($('#share').first(), 'height'))) / 2 
++ 'px');
+	//百度分享收缩功能
+	$('#share').hover(function () {
+		$(this).animate({
+			attr : 'x',
+			target : 0
+		});
 	}, function () {
-		$(this).css('background', 'url(images/arrow.png) no-repeat 55px center');
-		$().getClass('member_ul').hide();
+		$(this).animate({
+			attr : 'x',
+			target : -211
+		});
 	});
-	
-	//登录框
-	var login = $().getId('login');
-	var screen = $().getId('screen');
-	login.center(350, 250).resize(function () {
-		if (login.css('display') == 'block') {
-			screen.lock();
-		}
-	});
-	$().getClass('login').click(function () {
-		login.center(350, 250);
-		login.css('display', 'block');
-		screen.lock();
-	});
-	$().getClass('close').click(function () {
-		login.css('display', 'none');
-		screen.unlock();
-	});
-
-	
-	//拖拽
-	login.drag([$().getTagName('h2').getElement(0)]);
-	
-	
-
-	
-};
-*/
+});
 
 
 
